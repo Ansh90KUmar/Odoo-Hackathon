@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, Link, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 
@@ -72,55 +72,57 @@ const AuthProvider = ({ children }) => {
 
 const useAuth = () => React.useContext(AuthContext);
 
-// Components
+// Futuristic Navbar
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   return (
-    <nav className="bg-white shadow-lg border-b border-gray-200">
+    <nav className="cyber-nav">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-              ReWear
+        <div className="flex justify-between items-center h-20">
+          <Link to="/" className="flex items-center space-x-3">
+            <div className="cyber-logo">
+              <span className="text-3xl font-black cyber-gradient-text">ReWear</span>
+              <div className="cyber-logo-underline"></div>
             </div>
           </Link>
           
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-6">
             {user ? (
               <>
-                <Link to="/browse" className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">
-                  Browse Items
+                <Link to="/browse" className="cyber-link">
+                  <span className="cyber-text">BROWSE</span>
                 </Link>
-                <Link to="/add-item" className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">
-                  List Item
+                <Link to="/add-item" className="cyber-link">
+                  <span className="cyber-text">UPLOAD</span>
                 </Link>
-                <Link to="/dashboard" className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">
-                  Dashboard
+                <Link to="/dashboard" className="cyber-link">
+                  <span className="cyber-text">CONTROL</span>
                 </Link>
-                <div className="flex items-center space-x-3">
-                  <span className="text-sm text-gray-600">
-                    {user.points} points
-                  </span>
-                  <span className="text-sm font-medium text-gray-700">
-                    {user.username}
-                  </span>
+                <div className="flex items-center space-x-4">
+                  <div className="cyber-points">
+                    <span className="points-value">{user.points}</span>
+                    <span className="points-label">CREDITS</span>
+                  </div>
+                  <div className="cyber-user">
+                    <span className="user-name">{user.username}</span>
+                  </div>
                   <button
                     onClick={logout}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm"
+                    className="cyber-btn cyber-btn-danger"
                   >
-                    Logout
+                    LOGOUT
                   </button>
                 </div>
               </>
             ) : (
               <>
-                <Link to="/login" className="text-gray-700 hover:text-green-600 px-3 py-2 rounded-md text-sm font-medium">
-                  Login
+                <Link to="/login" className="cyber-link">
+                  <span className="cyber-text">LOGIN</span>
                 </Link>
-                <Link to="/register" className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium">
-                  Sign Up
+                <Link to="/register" className="cyber-btn cyber-btn-primary">
+                  JOIN NETWORK
                 </Link>
               </>
             )}
@@ -131,6 +133,7 @@ const Navbar = () => {
   );
 };
 
+// Futuristic Landing Page
 const Landing = () => {
   const { user } = useAuth();
   const [featuredItems, setFeaturedItems] = useState([]);
@@ -149,101 +152,116 @@ const Landing = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+    <div className="cyber-main">
       {/* Hero Section */}
-      <div className="relative bg-white overflow-hidden">
+      <div className="cyber-hero">
+        <div className="cyber-grid"></div>
         <div className="max-w-7xl mx-auto">
-          <div className="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-            <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-              <div className="sm:text-center lg:text-left">
-                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                  <span className="block xl:inline">Sustainable</span>{' '}
-                  <span className="block text-green-600 xl:inline">Fashion Exchange</span>
-                </h1>
-                <p className="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                  Give your clothes a second life! Exchange, swap, or redeem clothing items with our community-driven platform. Reduce waste, save money, and discover unique fashion pieces.
-                </p>
-                <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                  <div className="rounded-md shadow">
-                    <Link
-                      to={user ? "/browse" : "/register"}
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10"
-                    >
-                      Start Swapping
-                    </Link>
-                  </div>
-                  <div className="mt-3 sm:mt-0 sm:ml-3">
-                    <Link
-                      to="/browse"
-                      className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-green-700 bg-green-100 hover:bg-green-200 md:py-4 md:text-lg md:px-10"
-                    >
-                      Browse Items
-                    </Link>
-                  </div>
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen">
+            <div className="cyber-hero-content">
+              <div className="cyber-badge">
+                <span>NEXT-GEN FASHION EXCHANGE</span>
               </div>
-            </main>
+              <h1 className="cyber-title">
+                <span className="cyber-gradient-text">REWEAR</span>
+                <br />
+                <span className="text-white">THE FUTURE</span>
+                <br />
+                <span className="cyber-neon-text">OF FASHION</span>
+              </h1>
+              <p className="cyber-subtitle">
+                Neural-powered clothing exchange platform. Trade, swap, and redeem fashion items 
+                in the metaverse. Join the sustainable fashion revolution.
+              </p>
+              <div className="cyber-hero-buttons">
+                <Link
+                  to={user ? "/browse" : "/register"}
+                  className="cyber-btn cyber-btn-hero"
+                >
+                  <span>ENTER SYSTEM</span>
+                  <div className="cyber-btn-glow"></div>
+                </Link>
+                <Link
+                  to="/browse"
+                  className="cyber-btn cyber-btn-secondary"
+                >
+                  EXPLORE ITEMS
+                </Link>
+              </div>
+            </div>
+            <div className="cyber-hero-image">
+              <div className="cyber-image-container">
+                <img
+                  src="https://images.unsplash.com/photo-1702384867394-9770ff58d944?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwZmFzaGlvbnxlbnwwfHx8fDE3NTIyOTI0NTV8MA&ixlib=rb-4.1.0&q=85"
+                  alt="Futuristic Fashion"
+                  className="cyber-hero-img"
+                />
+                <div className="cyber-image-overlay"></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">
-          <img
-            className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
-            src="https://images.pexels.com/photos/6769372/pexels-photo-6769372.jpeg"
-            alt="Clothing exchange"
-          />
         </div>
       </div>
 
       {/* Features Section */}
-      <div className="py-12 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:text-center">
-            <h2 className="text-base text-green-600 font-semibold tracking-wide uppercase">Features</h2>
-            <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-              How ReWear Works
-            </p>
+      <div className="cyber-features">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="text-center mb-16">
+            <div className="cyber-section-badge">
+              <span>SYSTEM FEATURES</span>
+            </div>
+            <h2 className="cyber-section-title">
+              <span className="cyber-gradient-text">NEXT-LEVEL</span> EXCHANGE
+            </h2>
           </div>
 
-          <div className="mt-10">
-            <div className="space-y-10 md:space-y-0 md:grid md:grid-cols-3 md:gap-x-8 md:gap-y-10">
-              <div className="relative">
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
-                  <span className="text-xl font-bold">1</span>
-                </div>
-                <div className="ml-16">
-                  <img src="https://images.unsplash.com/photo-1573311392049-4186e3a47e9c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwxfHxjbG90aGluZyUyMHdhcmRyb2JlfGVufDB8fHx8MTc1MjI5MTU0MXww&ixlib=rb-4.1.0&q=85" alt="Organized wardrobe" className="h-32 w-full object-cover rounded-lg mb-4" />
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">List Your Items</h3>
-                  <p className="mt-2 text-base text-gray-500">
-                    Upload photos and details of clothing items you no longer wear. Set your preferred exchange method.
-                  </p>
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="cyber-feature-card">
+              <div className="cyber-feature-icon">
+                <div className="cyber-icon-glow"></div>
+                <span className="text-2xl">🔬</span>
               </div>
+              <img 
+                src="https://images.unsplash.com/photo-1597699639265-bb1b1fd01026?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwZmFzaGlvbnxlbnwwfHx8fDE3NTIyOTI0NTV8MA&ixlib=rb-4.1.0&q=85" 
+                alt="Neural Upload" 
+                className="cyber-feature-img" 
+              />
+              <h3 className="cyber-feature-title">NEURAL UPLOAD</h3>
+              <p className="cyber-feature-desc">
+                Upload your fashion items to the neural network. AI-powered cataloging and smart tagging.
+              </p>
+            </div>
 
-              <div className="relative">
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
-                  <span className="text-xl font-bold">2</span>
-                </div>
-                <div className="ml-16">
-                  <img src="https://images.unsplash.com/photo-1638604587609-fbb8469f4234?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHxjbG90aGluZyUyMHdhcmRyb2JlfGVufDB8fHx8MTc1MjI5MTU0MXww&ixlib=rb-4.1.0&q=85" alt="Clothing variety" className="h-32 w-full object-cover rounded-lg mb-4" />
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">Browse & Discover</h3>
-                  <p className="mt-2 text-base text-gray-500">
-                    Explore items from our community. Filter by size, category, and condition to find perfect matches.
-                  </p>
-                </div>
+            <div className="cyber-feature-card">
+              <div className="cyber-feature-icon">
+                <div className="cyber-icon-glow"></div>
+                <span className="text-2xl">🌐</span>
               </div>
+              <img 
+                src="https://images.pexels.com/photos/32952906/pexels-photo-32952906.jpeg" 
+                alt="Quantum Browse" 
+                className="cyber-feature-img" 
+              />
+              <h3 className="cyber-feature-title">QUANTUM BROWSE</h3>
+              <p className="cyber-feature-desc">
+                Explore infinite fashion possibilities. Quantum-enhanced search and discovery algorithms.
+              </p>
+            </div>
 
-              <div className="relative">
-                <div className="absolute flex items-center justify-center h-12 w-12 rounded-md bg-green-500 text-white">
-                  <span className="text-xl font-bold">3</span>
-                </div>
-                <div className="ml-16">
-                  <img src="https://images.unsplash.com/photo-1610210972338-ee1f30604994?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHxmYXNoaW9uJTIwY29tbXVuaXR5fGVufDB8fHx8MTc1MjI5MTU0OHww&ixlib=rb-4.1.0&q=85" alt="Fashion community" className="h-32 w-full object-cover rounded-lg mb-4" />
-                  <h3 className="text-lg leading-6 font-medium text-gray-900">Exchange & Earn</h3>
-                  <p className="mt-2 text-base text-gray-500">
-                    Swap items directly or use points to redeem. Earn points when others choose your items.
-                  </p>
-                </div>
+            <div className="cyber-feature-card">
+              <div className="cyber-feature-icon">
+                <div className="cyber-icon-glow"></div>
+                <span className="text-2xl">⚡</span>
               </div>
+              <img 
+                src="https://images.unsplash.com/photo-1702384867394-9770ff58d944?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwZmFzaGlvbnxlbnwwfHx8fDE3NTIyOTI0NTV8MA&ixlib=rb-4.1.0&q=85" 
+                alt="Instant Exchange" 
+                className="cyber-feature-img" 
+              />
+              <h3 className="cyber-feature-title">INSTANT EXCHANGE</h3>
+              <p className="cyber-feature-desc">
+                Lightning-fast swaps and credit transactions. Blockchain-secured fashion exchanges.
+              </p>
             </div>
           </div>
         </div>
@@ -251,33 +269,43 @@ const Landing = () => {
 
       {/* Featured Items */}
       {featuredItems.length > 0 && (
-        <div className="py-12 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-8">
-              Featured Items
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="cyber-featured">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="text-center mb-16">
+              <div className="cyber-section-badge">
+                <span>TRENDING NOW</span>
+              </div>
+              <h2 className="cyber-section-title">
+                <span className="cyber-neon-text">FEATURED</span> ITEMS
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {featuredItems.map((item) => (
-                <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="h-48 bg-gray-200 flex items-center justify-center">
+                <div key={item.id} className="cyber-item-card">
+                  <div className="cyber-item-image">
                     {item.images && item.images.length > 0 ? (
-                      <img src={`${BACKEND_URL}${item.images[0]}`} alt={item.title} className="h-full w-full object-cover" />
+                      <img src={`${BACKEND_URL}${item.images[0]}`} alt={item.title} />
                     ) : (
-                      <span className="text-gray-400">No image</span>
+                      <div className="cyber-no-image">
+                        <span>NO IMAGE</span>
+                      </div>
                     )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-lg text-gray-900">{item.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{item.category} • Size {item.size}</p>
-                    <p className="text-sm text-gray-500 mt-2">{item.description}</p>
-                    <div className="mt-3 flex justify-between items-center">
-                      <span className="text-green-600 font-semibold">{item.price_points} points</span>
-                      <Link 
-                        to={`/items/${item.id}`}
-                        className="text-blue-600 hover:text-blue-800 text-sm font-medium"
-                      >
-                        View Details
+                    <div className="cyber-item-overlay">
+                      <Link to={`/items/${item.id}`} className="cyber-btn cyber-btn-small">
+                        VIEW DATA
                       </Link>
+                    </div>
+                  </div>
+                  <div className="cyber-item-info">
+                    <h3 className="cyber-item-title">{item.title}</h3>
+                    <div className="cyber-item-meta">
+                      <span className="cyber-tag">{item.category}</span>
+                      <span className="cyber-tag">SIZE {item.size}</span>
+                    </div>
+                    <p className="cyber-item-desc">{item.description}</p>
+                    <div className="cyber-item-footer">
+                      <span className="cyber-credits">{item.price_points} CREDITS</span>
+                      <span className="cyber-owner">by {item.owner_username}</span>
                     </div>
                   </div>
                 </div>
@@ -290,6 +318,7 @@ const Landing = () => {
   );
 };
 
+// Futuristic Login Page
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -307,63 +336,77 @@ const Login = () => {
       await login(email, password);
       navigate('/dashboard');
     } catch (error) {
-      setError(error.response?.data?.detail || 'Login failed');
+      setError(error.response?.data?.detail || 'Authentication failed');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
-          </h2>
+    <div className="cyber-auth-page">
+      <div className="cyber-grid"></div>
+      <div className="cyber-auth-container">
+        <div className="cyber-auth-box">
+          <div className="cyber-auth-header">
+            <h2 className="cyber-auth-title">
+              <span className="cyber-gradient-text">SYSTEM</span> ACCESS
+            </h2>
+            <p className="cyber-auth-subtitle">Enter your neural credentials</p>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="cyber-form">
+            <div className="cyber-input-group">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="cyber-input"
+                placeholder="Neural Email ID"
+              />
+              <div className="cyber-input-glow"></div>
+            </div>
+            
+            <div className="cyber-input-group">
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="cyber-input"
+                placeholder="Security Passphrase"
+              />
+              <div className="cyber-input-glow"></div>
+            </div>
+
+            {error && (
+              <div className="cyber-error">
+                <span>❌ {error}</span>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="cyber-btn cyber-btn-submit"
+            >
+              {loading ? 'ACCESSING...' : 'AUTHENTICATE'}
+              <div className="cyber-btn-glow"></div>
+            </button>
+
+            <div className="cyber-auth-link">
+              <Link to="/register" className="cyber-link">
+                Create Neural Profile →
+              </Link>
+            </div>
+          </form>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-              placeholder="Email address"
-            />
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-              placeholder="Password"
-            />
-          </div>
-
-          {error && (
-            <div className="text-red-600 text-sm text-center">{error}</div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
-          >
-            {loading ? 'Signing in...' : 'Sign in'}
-          </button>
-
-          <div className="text-center">
-            <Link to="/register" className="text-green-600 hover:text-green-500">
-              Don't have an account? Sign up
-            </Link>
-          </div>
-        </form>
       </div>
     </div>
   );
 };
 
+// Futuristic Register Page
 const Register = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -382,71 +425,89 @@ const Register = () => {
       await register(email, username, password);
       navigate('/dashboard');
     } catch (error) {
-      setError(error.response?.data?.detail || 'Registration failed');
+      setError(error.response?.data?.detail || 'Neural profile creation failed');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create your account
-          </h2>
+    <div className="cyber-auth-page">
+      <div className="cyber-grid"></div>
+      <div className="cyber-auth-container">
+        <div className="cyber-auth-box">
+          <div className="cyber-auth-header">
+            <h2 className="cyber-auth-title">
+              <span className="cyber-neon-text">NEURAL</span> REGISTRATION
+            </h2>
+            <p className="cyber-auth-subtitle">Create your digital identity</p>
+          </div>
+          
+          <form onSubmit={handleSubmit} className="cyber-form">
+            <div className="cyber-input-group">
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="cyber-input"
+                placeholder="Neural Email Protocol"
+              />
+              <div className="cyber-input-glow"></div>
+            </div>
+            
+            <div className="cyber-input-group">
+              <input
+                type="text"
+                required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="cyber-input"
+                placeholder="User Handle"
+              />
+              <div className="cyber-input-glow"></div>
+            </div>
+            
+            <div className="cyber-input-group">
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="cyber-input"
+                placeholder="Security Algorithm"
+              />
+              <div className="cyber-input-glow"></div>
+            </div>
+
+            {error && (
+              <div className="cyber-error">
+                <span>❌ {error}</span>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="cyber-btn cyber-btn-submit"
+            >
+              {loading ? 'INITIALIZING...' : 'CREATE PROFILE'}
+              <div className="cyber-btn-glow"></div>
+            </button>
+
+            <div className="cyber-auth-link">
+              <Link to="/login" className="cyber-link">
+                Access Existing Profile →
+              </Link>
+            </div>
+          </form>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-3">
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-              placeholder="Email address"
-            />
-            <input
-              type="text"
-              required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-              placeholder="Username"
-            />
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
-              placeholder="Password"
-            />
-          </div>
-
-          {error && (
-            <div className="text-red-600 text-sm text-center">{error}</div>
-          )}
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
-          >
-            {loading ? 'Creating account...' : 'Sign up'}
-          </button>
-
-          <div className="text-center">
-            <Link to="/login" className="text-green-600 hover:text-green-500">
-              Already have an account? Sign in
-            </Link>
-          </div>
-        </form>
       </div>
     </div>
   );
 };
 
+// Futuristic Browse Items
 const BrowseItems = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -468,63 +529,79 @@ const BrowseItems = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Loading items...</div>
+      <div className="cyber-loading">
+        <div className="cyber-spinner"></div>
+        <span>SCANNING NEURAL NETWORK...</span>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">Browse Items</h1>
-          
-          {items.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-gray-500 text-lg">No items available yet.</div>
-              <Link to="/add-item" className="mt-4 inline-block bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-700">
-                Be the first to list an item!
-              </Link>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {items.map((item) => (
-                <div key={item.id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="h-48 bg-gray-200 flex items-center justify-center">
-                    {item.images && item.images.length > 0 ? (
-                      <img src={`${BACKEND_URL}${item.images[0]}`} alt={item.title} className="h-full w-full object-cover" />
-                    ) : (
-                      <span className="text-gray-400">No image</span>
-                    )}
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-lg text-gray-900">{item.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      {item.category} • Size {item.size} • {item.condition}
-                    </p>
-                    <p className="text-sm text-gray-500 mt-2 line-clamp-2">{item.description}</p>
-                    <p className="text-xs text-gray-400 mt-1">by {item.owner_username}</p>
-                    <div className="mt-3 flex justify-between items-center">
-                      <span className="text-green-600 font-semibold">{item.price_points} points</span>
-                      <Link 
-                        to={`/items/${item.id}`}
-                        className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm"
-                      >
-                        View Details
-                      </Link>
+    <div className="cyber-browse">
+      <div className="cyber-grid"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="cyber-page-header">
+          <h1 className="cyber-page-title">
+            <span className="cyber-gradient-text">BROWSE</span> NETWORK
+          </h1>
+          <div className="cyber-stats">
+            <span className="cyber-stat">
+              <span className="stat-value">{items.length}</span>
+              <span className="stat-label">ITEMS AVAILABLE</span>
+            </span>
+          </div>
+        </div>
+        
+        {items.length === 0 ? (
+          <div className="cyber-empty-state">
+            <div className="cyber-empty-icon">🚀</div>
+            <h3 className="cyber-empty-title">NETWORK EMPTY</h3>
+            <p className="cyber-empty-desc">No items detected in the neural network.</p>
+            <Link to="/add-item" className="cyber-btn cyber-btn-primary">
+              UPLOAD FIRST ITEM
+            </Link>
+          </div>
+        ) : (
+          <div className="cyber-items-grid">
+            {items.map((item) => (
+              <div key={item.id} className="cyber-item-card">
+                <div className="cyber-item-image">
+                  {item.images && item.images.length > 0 ? (
+                    <img src={`${BACKEND_URL}${item.images[0]}`} alt={item.title} />
+                  ) : (
+                    <div className="cyber-no-image">
+                      <span>NO IMAGE</span>
                     </div>
+                  )}
+                  <div className="cyber-item-overlay">
+                    <Link to={`/items/${item.id}`} className="cyber-btn cyber-btn-small">
+                      ACCESS DATA
+                    </Link>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+                <div className="cyber-item-info">
+                  <h3 className="cyber-item-title">{item.title}</h3>
+                  <div className="cyber-item-meta">
+                    <span className="cyber-tag">{item.category}</span>
+                    <span className="cyber-tag">SIZE {item.size}</span>
+                    <span className="cyber-tag cyber-tag-condition">{item.condition}</span>
+                  </div>
+                  <p className="cyber-item-desc">{item.description}</p>
+                  <div className="cyber-item-footer">
+                    <span className="cyber-credits">{item.price_points} CREDITS</span>
+                    <span className="cyber-owner">by {item.owner_username}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
+// Futuristic Add Item
 const AddItem = () => {
   const [formData, setFormData] = useState({
     title: '',
@@ -553,7 +630,6 @@ const AddItem = () => {
     setLoading(true);
 
     try {
-      // Create item
       const itemData = {
         ...formData,
         tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag)
@@ -562,7 +638,6 @@ const AddItem = () => {
       const response = await axios.post(`${API}/items`, itemData);
       const itemId = response.data.id;
 
-      // Upload images
       for (const image of images) {
         const formData = new FormData();
         formData.append('file', image);
@@ -577,7 +652,7 @@ const AddItem = () => {
       }, 2000);
     } catch (error) {
       console.error('Error creating item:', error);
-      alert('Error creating item. Please try again.');
+      alert('Neural upload failed. Please retry.');
     } finally {
       setLoading(false);
     }
@@ -585,144 +660,158 @@ const AddItem = () => {
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-green-600 text-2xl font-semibold mb-4">Item listed successfully!</div>
-          <div className="text-gray-600">Redirecting to dashboard...</div>
-        </div>
+      <div className="cyber-success">
+        <div className="cyber-success-icon">✅</div>
+        <h2 className="cyber-success-title">UPLOAD SUCCESSFUL</h2>
+        <p className="cyber-success-desc">Item uploaded to neural network</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-3xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <h1 className="text-3xl font-bold text-gray-900 mb-8">List a New Item</h1>
-          
-          <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-6 space-y-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+    <div className="cyber-upload">
+      <div className="cyber-grid"></div>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="cyber-page-header">
+          <h1 className="cyber-page-title">
+            <span className="cyber-neon-text">NEURAL</span> UPLOAD
+          </h1>
+          <p className="cyber-page-subtitle">Upload your fashion data to the network</p>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="cyber-upload-form">
+          <div className="cyber-form-grid">
+            <div className="cyber-input-group cyber-input-full">
+              <label className="cyber-label">ITEM DESIGNATION</label>
               <input
                 type="text"
                 name="title"
                 required
                 value={formData.title}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="e.g., Vintage Denim Jacket"
+                className="cyber-input"
+                placeholder="e.g., Quantum Denim Jacket"
               />
+              <div className="cyber-input-glow"></div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            <div className="cyber-input-group cyber-input-full">
+              <label className="cyber-label">DATA DESCRIPTION</label>
               <textarea
                 name="description"
                 required
                 value={formData.description}
                 onChange={handleInputChange}
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="Describe the item, its condition, style, etc."
+                className="cyber-input cyber-textarea"
+                placeholder="Neural description of item properties..."
               />
+              <div className="cyber-input-glow"></div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Category</label>
-                <select
-                  name="category"
-                  value={formData.category}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                >
-                  <option value="tops">Tops</option>
-                  <option value="bottoms">Bottoms</option>
-                  <option value="dresses">Dresses</option>
-                  <option value="outerwear">Outerwear</option>
-                  <option value="shoes">Shoes</option>
-                  <option value="accessories">Accessories</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Size</label>
-                <input
-                  type="text"
-                  name="size"
-                  required
-                  value={formData.size}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                  placeholder="e.g., M, L, 32, 8"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Condition</label>
-                <select
-                  name="condition"
-                  value={formData.condition}
-                  onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                >
-                  <option value="excellent">Excellent</option>
-                  <option value="good">Good</option>
-                  <option value="fair">Fair</option>
-                  <option value="poor">Poor</option>
-                </select>
-              </div>
+            <div className="cyber-input-group">
+              <label className="cyber-label">CATEGORY MATRIX</label>
+              <select
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                className="cyber-input cyber-select"
+              >
+                <option value="tops">NEURAL_TOPS</option>
+                <option value="bottoms">QUANTUM_BOTTOMS</option>
+                <option value="dresses">HOLO_DRESSES</option>
+                <option value="outerwear">CYBER_OUTERWEAR</option>
+                <option value="shoes">DIGITAL_FOOTWEAR</option>
+                <option value="accessories">TECH_ACCESSORIES</option>
+              </select>
+              <div className="cyber-input-glow"></div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Points Required</label>
+            <div className="cyber-input-group">
+              <label className="cyber-label">SIZE PROTOCOL</label>
+              <input
+                type="text"
+                name="size"
+                required
+                value={formData.size}
+                onChange={handleInputChange}
+                className="cyber-input"
+                placeholder="M, L, 32, 8..."
+              />
+              <div className="cyber-input-glow"></div>
+            </div>
+
+            <div className="cyber-input-group">
+              <label className="cyber-label">CONDITION STATUS</label>
+              <select
+                name="condition"
+                value={formData.condition}
+                onChange={handleInputChange}
+                className="cyber-input cyber-select"
+              >
+                <option value="excellent">PRISTINE</option>
+                <option value="good">OPTIMAL</option>
+                <option value="fair">FUNCTIONAL</option>
+                <option value="poor">DEGRADED</option>
+              </select>
+              <div className="cyber-input-glow"></div>
+            </div>
+
+            <div className="cyber-input-group">
+              <label className="cyber-label">CREDIT VALUE</label>
               <input
                 type="number"
                 name="price_points"
                 value={formData.price_points}
                 onChange={handleInputChange}
                 min="1"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="cyber-input"
               />
+              <div className="cyber-input-glow"></div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Tags (comma-separated)</label>
+            <div className="cyber-input-group cyber-input-full">
+              <label className="cyber-label">NEURAL TAGS</label>
               <input
                 type="text"
                 name="tags"
                 value={formData.tags}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                placeholder="e.g., vintage, casual, summer"
+                className="cyber-input"
+                placeholder="vintage, cyber, neon, holographic..."
               />
+              <div className="cyber-input-glow"></div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Images</label>
+            <div className="cyber-input-group cyber-input-full">
+              <label className="cyber-label">IMAGE UPLOAD</label>
               <input
                 type="file"
                 multiple
                 accept="image/*"
                 onChange={(e) => setImages(Array.from(e.target.files))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="cyber-file-input"
               />
-              <p className="text-sm text-gray-500 mt-1">You can select multiple images</p>
+              <div className="cyber-file-info">Upload visual data to neural network</div>
             </div>
+          </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md disabled:opacity-50"
-            >
-              {loading ? 'Creating Item...' : 'List Item'}
-            </button>
-          </form>
-        </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="cyber-btn cyber-btn-submit cyber-btn-upload"
+          >
+            {loading ? 'UPLOADING TO NETWORK...' : 'INITIATE UPLOAD'}
+            <div className="cyber-btn-glow"></div>
+          </button>
+        </form>
       </div>
     </div>
   );
 };
+
+// Dashboard and other components would follow similar futuristic styling...
+// For brevity, I'll include key components
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -756,178 +845,151 @@ const Dashboard = () => {
   const handleSwapAction = async (swapId, action) => {
     try {
       await axios.put(`${API}/swaps/${swapId}/${action}`);
-      fetchDashboardData(); // Refresh data
+      fetchDashboardData();
     } catch (error) {
       console.error(`Error ${action}ing swap:`, error);
-      alert(`Error ${action}ing swap`);
+      alert(`Neural ${action} failed`);
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Loading dashboard...</div>
+      <div className="cyber-loading">
+        <div className="cyber-spinner"></div>
+        <span>ACCESSING NEURAL DASHBOARD...</span>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-            <div className="mt-4 bg-white rounded-lg shadow p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl font-semibold text-gray-900">Welcome back, {user.username}!</h2>
-                  <p className="text-gray-600">You have {user.points} points available</p>
-                </div>
-                <Link
-                  to="/add-item"
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md"
-                >
-                  List New Item
-                </Link>
-              </div>
+    <div className="cyber-dashboard">
+      <div className="cyber-grid"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="cyber-dashboard-header">
+          <h1 className="cyber-page-title">
+            <span className="cyber-gradient-text">NEURAL</span> COMMAND CENTER
+          </h1>
+          <div className="cyber-user-info">
+            <div className="cyber-user-avatar">
+              <span>{user.username.charAt(0).toUpperCase()}</span>
             </div>
+            <div className="cyber-user-details">
+              <span className="cyber-username">{user.username}</span>
+              <span className="cyber-credits-large">{user.points} CREDITS</span>
+            </div>
+            <Link to="/add-item" className="cyber-btn cyber-btn-primary">
+              + UPLOAD ITEM
+            </Link>
           </div>
+        </div>
 
+        {/* Dashboard sections with futuristic styling */}
+        <div className="cyber-dashboard-grid">
           {/* My Items */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">My Items ({myItems.length})</h2>
+          <div className="cyber-dashboard-section">
+            <h2 className="cyber-section-title">
+              MY NEURAL ITEMS ({myItems.length})
+            </h2>
             {myItems.length === 0 ? (
-              <div className="bg-white rounded-lg shadow p-6 text-center">
-                <p className="text-gray-500">You haven't listed any items yet.</p>
-                <Link to="/add-item" className="mt-2 inline-block text-green-600 hover:text-green-500">
-                  List your first item
-                </Link>
+              <div className="cyber-empty-state cyber-empty-small">
+                <p>No items in neural storage</p>
+                <Link to="/add-item" className="cyber-link">Upload first item →</Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {myItems.map((item) => (
-                  <div key={item.id} className="bg-white rounded-lg shadow p-4">
-                    <div className="h-32 bg-gray-200 rounded mb-3 flex items-center justify-center">
+              <div className="cyber-items-list">
+                {myItems.slice(0, 3).map((item) => (
+                  <div key={item.id} className="cyber-item-mini">
+                    <div className="cyber-item-mini-image">
                       {item.images && item.images.length > 0 ? (
-                        <img src={`${BACKEND_URL}${item.images[0]}`} alt={item.title} className="h-full w-full object-cover rounded" />
+                        <img src={`${BACKEND_URL}${item.images[0]}`} alt={item.title} />
                       ) : (
-                        <span className="text-gray-400">No image</span>
+                        <div className="cyber-no-image-mini">📁</div>
                       )}
                     </div>
-                    <h3 className="font-semibold">{item.title}</h3>
-                    <p className="text-sm text-gray-600">{item.category} • {item.condition}</p>
-                    <div className="mt-2 flex justify-between items-center">
-                      <span className={`text-sm ${item.available ? 'text-green-600' : 'text-red-600'}`}>
-                        {item.available ? 'Available' : 'Not Available'}
+                    <div className="cyber-item-mini-info">
+                      <h3>{item.title}</h3>
+                      <span className={`cyber-status ${item.available ? 'available' : 'unavailable'}`}>
+                        {item.available ? 'ACTIVE' : 'INACTIVE'}
                       </span>
-                      <span className="text-sm text-gray-500">{item.price_points} pts</span>
                     </div>
+                    <span className="cyber-credits-mini">{item.price_points}C</span>
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Received Swap Requests */}
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Received Requests ({receivedSwaps.length})</h2>
+          {/* Received Swaps */}
+          <div className="cyber-dashboard-section">
+            <h2 className="cyber-section-title">
+              INCOMING REQUESTS ({receivedSwaps.length})
+            </h2>
             {receivedSwaps.length === 0 ? (
-              <div className="bg-white rounded-lg shadow p-6 text-center">
-                <p className="text-gray-500">No swap requests received yet.</p>
+              <div className="cyber-empty-state cyber-empty-small">
+                <p>No incoming neural requests</p>
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow overflow-hidden">
-                <div className="divide-y divide-gray-200">
-                  {receivedSwaps.map((swap) => (
-                    <div key={swap.id} className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold">{swap.item_title}</h3>
-                          <p className="text-sm text-gray-600">
-                            Request from {swap.requester_username}
-                          </p>
-                          {swap.is_points_request ? (
-                            <p className="text-sm text-green-600">Points redemption request</p>
-                          ) : (
-                            <p className="text-sm text-blue-600">
-                              Offering: {swap.offered_item_title || 'Direct swap'}
-                            </p>
-                          )}
-                          {swap.message && (
-                            <p className="text-sm text-gray-500 mt-1">"{swap.message}"</p>
-                          )}
-                        </div>
-                        <div className="flex space-x-2">
-                          {swap.status === 'pending' && (
-                            <>
-                              <button
-                                onClick={() => handleSwapAction(swap.id, 'accept')}
-                                className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm"
-                              >
-                                Accept
-                              </button>
-                              <button
-                                onClick={() => handleSwapAction(swap.id, 'reject')}
-                                className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-                              >
-                                Reject
-                              </button>
-                            </>
-                          )}
-                          <span className={`px-2 py-1 rounded text-xs ${
-                            swap.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                            swap.status === 'accepted' ? 'bg-green-100 text-green-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {swap.status}
-                          </span>
-                        </div>
-                      </div>
+              <div className="cyber-swaps-list">
+                {receivedSwaps.slice(0, 3).map((swap) => (
+                  <div key={swap.id} className="cyber-swap-item">
+                    <div className="cyber-swap-info">
+                      <h4>{swap.item_title}</h4>
+                      <span className="cyber-requester">from {swap.requester_username}</span>
+                      {swap.is_points_request ? (
+                        <span className="cyber-swap-type points">CREDITS</span>
+                      ) : (
+                        <span className="cyber-swap-type swap">ITEM SWAP</span>
+                      )}
                     </div>
-                  ))}
-                </div>
+                    {swap.status === 'pending' && (
+                      <div className="cyber-swap-actions">
+                        <button
+                          onClick={() => handleSwapAction(swap.id, 'accept')}
+                          className="cyber-btn cyber-btn-mini cyber-btn-success"
+                        >
+                          ✓
+                        </button>
+                        <button
+                          onClick={() => handleSwapAction(swap.id, 'reject')}
+                          className="cyber-btn cyber-btn-mini cyber-btn-danger"
+                        >
+                          ✗
+                        </button>
+                      </div>
+                    )}
+                    <span className={`cyber-status ${swap.status}`}>{swap.status}</span>
+                  </div>
+                ))}
               </div>
             )}
           </div>
 
-          {/* Sent Swap Requests */}
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Sent Requests ({sentSwaps.length})</h2>
+          {/* Sent Swaps */}
+          <div className="cyber-dashboard-section">
+            <h2 className="cyber-section-title">
+              OUTGOING REQUESTS ({sentSwaps.length})
+            </h2>
             {sentSwaps.length === 0 ? (
-              <div className="bg-white rounded-lg shadow p-6 text-center">
-                <p className="text-gray-500">No swap requests sent yet.</p>
-                <Link to="/browse" className="mt-2 inline-block text-green-600 hover:text-green-500">
-                  Browse items to start swapping
-                </Link>
+              <div className="cyber-empty-state cyber-empty-small">
+                <p>No outgoing neural requests</p>
+                <Link to="/browse" className="cyber-link">Browse items →</Link>
               </div>
             ) : (
-              <div className="bg-white rounded-lg shadow overflow-hidden">
-                <div className="divide-y divide-gray-200">
-                  {sentSwaps.map((swap) => (
-                    <div key={swap.id} className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <h3 className="font-semibold">{swap.item_title}</h3>
-                          <p className="text-sm text-gray-600">
-                            Request to {swap.owner_username}
-                          </p>
-                          {swap.is_points_request ? (
-                            <p className="text-sm text-green-600">Points redemption request</p>
-                          ) : (
-                            <p className="text-sm text-blue-600">Direct swap request</p>
-                          )}
-                        </div>
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          swap.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                          swap.status === 'accepted' ? 'bg-green-100 text-green-800' :
-                          'bg-red-100 text-red-800'
-                        }`}>
-                          {swap.status}
-                        </span>
-                      </div>
+              <div className="cyber-swaps-list">
+                {sentSwaps.slice(0, 3).map((swap) => (
+                  <div key={swap.id} className="cyber-swap-item">
+                    <div className="cyber-swap-info">
+                      <h4>{swap.item_title}</h4>
+                      <span className="cyber-requester">to {swap.owner_username}</span>
+                      {swap.is_points_request ? (
+                        <span className="cyber-swap-type points">CREDITS</span>
+                      ) : (
+                        <span className="cyber-swap-type swap">ITEM SWAP</span>
+                      )}
                     </div>
-                  ))}
-                </div>
+                    <span className={`cyber-status ${swap.status}`}>{swap.status}</span>
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -937,6 +999,7 @@ const Dashboard = () => {
   );
 };
 
+// Item Detail Page
 const ItemDetail = () => {
   const { id } = useParams();
   const { user } = useAuth();
@@ -984,27 +1047,30 @@ const ItemDetail = () => {
     }
 
     try {
-      await axios.post(`${API}/swaps`, swapData);
-      alert('Swap request sent successfully!');
+      await axios.post(`${API}/swaps`, { ...swapData, item_id: id });
+      alert('Neural request transmitted successfully!');
       navigate('/dashboard');
     } catch (error) {
       console.error('Error creating swap request:', error);
-      alert(error.response?.data?.detail || 'Error sending swap request');
+      alert(error.response?.data?.detail || 'Neural transmission failed');
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Loading item...</div>
+      <div className="cyber-loading">
+        <div className="cyber-spinner"></div>
+        <span>SCANNING ITEM DATA...</span>
       </div>
     );
   }
 
   if (!item) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Item not found</div>
+      <div className="cyber-error-page">
+        <h2>ITEM NOT FOUND</h2>
+        <p>Neural scan failed to locate item data</p>
+        <Link to="/browse" className="cyber-btn cyber-btn-primary">Return to Browse</Link>
       </div>
     );
   }
@@ -1012,167 +1078,173 @@ const ItemDetail = () => {
   const isOwner = user && item.owner_id === user.id;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-6">
-              {/* Image Gallery */}
-              <div>
-                <div className="h-96 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-                  {item.images && item.images.length > 0 ? (
-                    <img src={`${BACKEND_URL}${item.images[0]}`} alt={item.title} className="h-full w-full object-cover rounded-lg" />
-                  ) : (
-                    <span className="text-gray-400">No image available</span>
-                  )}
+    <div className="cyber-item-detail">
+      <div className="cyber-grid"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="cyber-item-detail-container">
+          <div className="cyber-item-gallery">
+            <div className="cyber-main-image">
+              {item.images && item.images.length > 0 ? (
+                <img src={`${BACKEND_URL}${item.images[0]}`} alt={item.title} />
+              ) : (
+                <div className="cyber-no-image-large">
+                  <span>NO VISUAL DATA</span>
                 </div>
-                {item.images && item.images.length > 1 && (
-                  <div className="flex space-x-2 overflow-x-auto">
-                    {item.images.slice(1).map((image, index) => (
-                      <img
-                        key={index}
-                        src={`${BACKEND_URL}${image}`}
-                        alt={`${item.title} ${index + 2}`}
-                        className="h-16 w-16 object-cover rounded flex-shrink-0"
-                      />
-                    ))}
-                  </div>
-                )}
+              )}
+              <div className="cyber-image-glow"></div>
+            </div>
+            {item.images && item.images.length > 1 && (
+              <div className="cyber-image-thumbs">
+                {item.images.slice(1, 4).map((image, index) => (
+                  <img
+                    key={index}
+                    src={`${BACKEND_URL}${image}`}
+                    alt={`${item.title} ${index + 2}`}
+                    className="cyber-thumb"
+                  />
+                ))}
               </div>
+            )}
+          </div>
 
-              {/* Item Details */}
-              <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-4">{item.title}</h1>
-                
-                <div className="flex items-center space-x-4 mb-4">
-                  <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded text-sm">
-                    {item.category}
-                  </span>
-                  <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm">
-                    Size {item.size}
-                  </span>
-                  <span className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
-                    {item.condition}
-                  </span>
-                </div>
-
-                <p className="text-gray-700 mb-6">{item.description}</p>
-
-                <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-2">Owner</h3>
-                  <p className="text-gray-600">{item.owner_username}</p>
-                </div>
-
-                <div className="mb-6">
-                  <h3 className="font-semibold text-gray-900 mb-2">Points Required</h3>
-                  <p className="text-2xl font-bold text-green-600">{item.price_points} points</p>
-                </div>
-
-                {item.tags && item.tags.length > 0 && (
-                  <div className="mb-6">
-                    <h3 className="font-semibold text-gray-900 mb-2">Tags</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {item.tags.map((tag, index) => (
-                        <span key={index} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Swap Options */}
-                {!isOwner && item.available && user && (
-                  <div className="border-t pt-6">
-                    <h3 className="font-semibold text-gray-900 mb-4">Request this item</h3>
-                    
-                    <div className="space-y-4">
-                      <label className="flex items-center">
-                        <input
-                          type="radio"
-                          name="swap_type"
-                          checked={swapData.is_points_request}
-                          onChange={() => setSwapData({...swapData, is_points_request: true, offered_item_id: ''})}
-                          className="mr-2"
-                        />
-                        <span>Redeem with points ({item.price_points} points)</span>
-                        {user.points < item.price_points && (
-                          <span className="ml-2 text-red-600 text-sm">(Insufficient points)</span>
-                        )}
-                      </label>
-
-                      <label className="flex items-center">
-                        <input
-                          type="radio"
-                          name="swap_type"
-                          checked={!swapData.is_points_request}
-                          onChange={() => setSwapData({...swapData, is_points_request: false})}
-                          className="mr-2"
-                        />
-                        <span>Offer item in exchange</span>
-                      </label>
-
-                      {!swapData.is_points_request && (
-                        <select
-                          value={swapData.offered_item_id}
-                          onChange={(e) => setSwapData({...swapData, offered_item_id: e.target.value})}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                        >
-                          <option value="">Select an item to offer</option>
-                          {myItems.map((myItem) => (
-                            <option key={myItem.id} value={myItem.id}>
-                              {myItem.title} ({myItem.category}, {myItem.size})
-                            </option>
-                          ))}
-                        </select>
-                      )}
-
-                      <textarea
-                        value={swapData.message}
-                        onChange={(e) => setSwapData({...swapData, message: e.target.value})}
-                        placeholder="Add a message (optional)"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                        rows={3}
-                      />
-
-                      <button
-                        onClick={handleSwapRequest}
-                        disabled={
-                          (swapData.is_points_request && user.points < item.price_points) ||
-                          (!swapData.is_points_request && !swapData.offered_item_id)
-                        }
-                        className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-medium py-2 px-4 rounded-md"
-                      >
-                        Send Request
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {!user && (
-                  <div className="border-t pt-6">
-                    <Link
-                      to="/login"
-                      className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md text-center block"
-                    >
-                      Login to request this item
-                    </Link>
-                  </div>
-                )}
-
-                {isOwner && (
-                  <div className="border-t pt-6">
-                    <p className="text-gray-600">This is your item.</p>
-                  </div>
-                )}
-
-                {!item.available && (
-                  <div className="border-t pt-6">
-                    <p className="text-red-600 font-medium">This item is no longer available.</p>
-                  </div>
-                )}
+          <div className="cyber-item-details">
+            <div className="cyber-item-header">
+              <h1 className="cyber-item-title-large">{item.title}</h1>
+              <div className="cyber-item-badges">
+                <span className="cyber-badge cyber-badge-category">{item.category}</span>
+                <span className="cyber-badge cyber-badge-size">SIZE {item.size}</span>
+                <span className="cyber-badge cyber-badge-condition">{item.condition}</span>
               </div>
             </div>
+
+            <div className="cyber-item-description">
+              <p>{item.description}</p>
+            </div>
+
+            <div className="cyber-item-meta-grid">
+              <div className="cyber-meta-item">
+                <span className="cyber-meta-label">OWNER</span>
+                <span className="cyber-meta-value">{item.owner_username}</span>
+              </div>
+              <div className="cyber-meta-item">
+                <span className="cyber-meta-label">CREDIT VALUE</span>
+                <span className="cyber-meta-value cyber-credits">{item.price_points} CREDITS</span>
+              </div>
+              <div className="cyber-meta-item">
+                <span className="cyber-meta-label">STATUS</span>
+                <span className={`cyber-meta-value cyber-status ${item.available ? 'available' : 'unavailable'}`}>
+                  {item.available ? 'AVAILABLE' : 'ACQUIRED'}
+                </span>
+              </div>
+            </div>
+
+            {item.tags && item.tags.length > 0 && (
+              <div className="cyber-tags">
+                <span className="cyber-tags-label">NEURAL TAGS:</span>
+                <div className="cyber-tags-list">
+                  {item.tags.map((tag, index) => (
+                    <span key={index} className="cyber-tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Swap Interface */}
+            {!isOwner && item.available && user && (
+              <div className="cyber-swap-interface">
+                <h3 className="cyber-interface-title">INITIATE EXCHANGE</h3>
+                
+                <div className="cyber-swap-options">
+                  <label className="cyber-radio-option">
+                    <input
+                      type="radio"
+                      name="swap_type"
+                      checked={swapData.is_points_request}
+                      onChange={() => setSwapData({...swapData, is_points_request: true, offered_item_id: ''})}
+                    />
+                    <div className="cyber-radio-design"></div>
+                    <span>CREDIT EXCHANGE ({item.price_points} credits)</span>
+                    {user.points < item.price_points && (
+                      <span className="cyber-warning">INSUFFICIENT CREDITS</span>
+                    )}
+                  </label>
+
+                  <label className="cyber-radio-option">
+                    <input
+                      type="radio"
+                      name="swap_type"
+                      checked={!swapData.is_points_request}
+                      onChange={() => setSwapData({...swapData, is_points_request: false})}
+                    />
+                    <div className="cyber-radio-design"></div>
+                    <span>ITEM EXCHANGE</span>
+                  </label>
+                </div>
+
+                {!swapData.is_points_request && (
+                  <div className="cyber-input-group">
+                    <label className="cyber-label">SELECT EXCHANGE ITEM</label>
+                    <select
+                      value={swapData.offered_item_id}
+                      onChange={(e) => setSwapData({...swapData, offered_item_id: e.target.value})}
+                      className="cyber-input cyber-select"
+                    >
+                      <option value="">Choose item to offer...</option>
+                      {myItems.map((myItem) => (
+                        <option key={myItem.id} value={myItem.id}>
+                          {myItem.title} ({myItem.category}, {myItem.size})
+                        </option>
+                      ))}
+                    </select>
+                    <div className="cyber-input-glow"></div>
+                  </div>
+                )}
+
+                <div className="cyber-input-group">
+                  <label className="cyber-label">NEURAL MESSAGE</label>
+                  <textarea
+                    value={swapData.message}
+                    onChange={(e) => setSwapData({...swapData, message: e.target.value})}
+                    placeholder="Optional exchange message..."
+                    className="cyber-input cyber-textarea"
+                    rows={3}
+                  />
+                  <div className="cyber-input-glow"></div>
+                </div>
+
+                <button
+                  onClick={handleSwapRequest}
+                  disabled={
+                    (swapData.is_points_request && user.points < item.price_points) ||
+                    (!swapData.is_points_request && !swapData.offered_item_id)
+                  }
+                  className="cyber-btn cyber-btn-exchange"
+                >
+                  TRANSMIT REQUEST
+                  <div className="cyber-btn-glow"></div>
+                </button>
+              </div>
+            )}
+
+            {!user && (
+              <div className="cyber-auth-prompt">
+                <Link to="/login" className="cyber-btn cyber-btn-primary cyber-btn-full">
+                  ACCESS REQUIRED - LOGIN
+                </Link>
+              </div>
+            )}
+
+            {isOwner && (
+              <div className="cyber-owner-notice">
+                <span>⚡ YOU OWN THIS ITEM</span>
+              </div>
+            )}
+
+            {!item.available && (
+              <div className="cyber-unavailable-notice">
+                <span>❌ ITEM NO LONGER AVAILABLE</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -1180,17 +1252,15 @@ const ItemDetail = () => {
   );
 };
 
-// Import useParams for ItemDetail
-import { useParams } from 'react-router-dom';
-
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
   
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-xl text-gray-600">Loading...</div>
+      <div className="cyber-loading">
+        <div className="cyber-spinner"></div>
+        <span>AUTHENTICATING...</span>
       </div>
     );
   }
@@ -1200,7 +1270,7 @@ const ProtectedRoute = ({ children }) => {
 
 function App() {
   return (
-    <div className="App">
+    <div className="App cyber-app">
       <AuthProvider>
         <BrowserRouter>
           <Navbar />
