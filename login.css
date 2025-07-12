@@ -1,0 +1,147 @@
+/* ===== Green Threads Theme for Login Page ===== */
+.login-image{
+    width:440px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(76,124,89,0.07);
+    background: #FCFCFC;
+}
+.login{
+    display: grid;
+    grid-template-columns: 3fr 1fr 2fr;
+    padding-top:110px;
+    background: #F8E9D0; /* Light Tan */
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(76,124,89,0.07);
+}
+.vl{
+    border-left: 1px solid #A8C3A0; /* Sage Green */
+    height: 400px;
+}
+@media screen and (max-width:992px) and (min-width:777px){
+    .vl{
+        height:280px;
+    }
+}
+@media screen and (max-width:778px) and (min-width:591px){
+    .vl{
+        height:200px;
+    }
+}
+@media screen and (max-width:592px) and (min-width:421px){
+    .vl{
+        height:170px;
+    }
+}
+@media screen and (max-width:423px){
+    .vl{
+        height:120px;
+    }
+}
+.login-form,
+.signup-form {
+    text-align: center;
+    padding-bottom: 20px;
+    font-family: 'Open Sans', 'Lato', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.signup-form form,
+.login-form form {
+    width: 100%;
+    max-width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px; /* Added gap for better alignment */
+}
+.signup-form label,
+.signup-form input,
+.signup-form button,
+.login-form label,
+.login-form input,
+.login-form button {
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+}
+.signup-form input,
+.login-form input {
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 2px solid #A8C3A0;
+    font-size: 1em;
+    font-family: 'Open Sans', Arial, sans-serif;
+    margin-bottom: 8px;
+    background: #FFF6C3;
+    transition: border-color 0.2s;
+}
+.signup-form input:focus,
+.login-form input:focus {
+    border-color: #4C7C59;
+    background: #FCFCFC;
+}
+.login-button,
+.signup-button {
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    color: #FCFCFC;
+    border-radius: 20px;
+    background: #4C7C59; /* Fern Green */
+    border:none;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 2px 8px rgba(76,124,89,0.10);
+    margin-top: 10px;
+}
+.login-button:hover,
+.signup-button:hover {
+    background-color: #A8C3A0; /* Sage Green */
+    color: #3B3B3B;
+}
+.back-button{
+    display:inline-block;
+    width: 100px;
+    height: 40px;
+    color: #4C7C59; /* Fern Green */
+    background: none;
+    border:none;
+    font-weight: 900;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: 'Poppins', sans-serif;
+}
+.back-button:hover{
+    color: #A8C3A0; /* Sage Green */
+}
+hr{
+    border: 1px solid #A8C3A0; /* Sage Green */
+    max-width:70px;
+    margin:auto;
+}
+h4.other-login-op{
+    text-align:center;
+    font-size: 18px;
+    font-weight: 900;
+    color: #4C7C59; /* Fern Green */
+    font-family: 'Poppins', sans-serif;
+}
+.social{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding-bottom: 20px;
+}
+/* Responsive for mobile */
+@media screen and (max-width: 500px) {
+        .signup-form form,
+        .login-form form {
+            max-width: 95vw;
+            padding: 0;
+        }
+    }
+

@@ -1,0 +1,50 @@
+/* ===== Green Threads Theme for Merlin Grids ===== */
+.merlin-grids1, .merlin-grids2 {
+    padding-left: 40px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    background: #FCFCFC; /* Warm White */
+    border-radius: 18px;
+    box-shadow: 0 2px 12px rgba(76,124,89,0.07);
+}
+.merlin-grids2 {
+    padding-right: 40px;
+    grid-gap: 10px;
+}
+.merlin-grids1 {
+    padding-top: 10px;
+    padding-right: 30px;
+    grid-gap: 20px;
+}
+.merlin-grids2 img,
+.merlin-grids1 img {
+    background: #FFF6C3; /* Soft Yellow */
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(76,124,89,0.10);
+    padding: 8px;
+    transition: box-shadow 0.2s;
+}
+.merlin-grids2 img:hover,
+.merlin-grids1 img:hover {
+    box-shadow: 0 4px 24px rgba(76,124,89,0.15);
+}
+.merlin-grids2 img:nth-child(2) {
+    padding-top: 70px;
+}
+
+@media screen and (max-width:452px) {
+    .merlin-grids2 img:nth-child(2) {
+        padding-top: 20px;
+    }
+}
+@media screen and (max-width:780px) and (min-width:1014px) {
+    .merlin-grids1 {
+        padding-top: 160px;
+    }
+}
+@media screen and (max-width:1280px) {
+    .merlin-grids1, .merlin-grids2 {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+}
