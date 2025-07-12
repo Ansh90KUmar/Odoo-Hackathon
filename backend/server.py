@@ -272,12 +272,12 @@ async def upload_item_image(
 
 @api_router.get("/items/user/{user_id}")
 async def get_user_items(user_id: str):
-    items = await db.items.find({"owner_id": user_id}).to_list(100)
+    items = await db.items.find({"owner_id": user_id}, {"_id": 0}).to_list(100)
     return items
 
 @api_router.get("/my-items")
 async def get_my_items(current_user: dict = Depends(get_current_user)):
-    items = await db.items.find({"owner_id": current_user["id"]}).to_list(100)
+    items = await db.items.find({"owner_id": current_user["id"]}, {"_id": 0}).to_list(100)
     return items
 
 # Swap endpoints
