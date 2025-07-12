@@ -320,30 +320,30 @@ async def create_swap_request(
 
 @api_router.get("/swaps/received")
 async def get_received_swaps(current_user: dict = Depends(get_current_user)):
-    swaps = await db.swap_requests.find({"owner_id": current_user["id"]}).to_list(100)
+    swaps = await db.swap_requests.find({"owner_id": current_user["id"]}, {"_id": 0}).to_list(100)
     
     # Enrich with item and requester info
     for swap in swaps:
-        item = await db.items.find_one({"id": swap["item_id"]})
-        requester = await db.users.find_one({"id": swap["requester_id"]})
+        item = await db.items.find_one({"id": swap["item_id"]}, {"_id": 0})
+        requester = await db.users.find_one({"id": swap["requester_id"]}, {"_id": 0})
         
         swap["item_title"] = item["title"] if item else "Unknown"
         swap["requester_username"] = requester["username"] if requester else "Unknown"
         
         if swap["offered_item_id"]:
-            offered_item = await db.items.find_one({"id": swap["offered_item_id"]})
+            offered_item = await db.items.find_one({"id": swap["offered_item_id"]}, {"_id": 0})
             swap["offered_item_title"] = offered_item["title"] if offered_item else "Unknown"
     
     return swaps
 
 @api_router.get("/swaps/sent")
 async def get_sent_swaps(current_user: dict = Depends(get_current_user)):
-    swaps = await db.swap_requests.find({"requester_id": current_user["id"]}).to_list(100)
+    swaps = await db.swap_requests.find({"requester_id": current_user["id"]}, {"_id": 0}).to_list(100)
     
     # Enrich with item and owner info
     for swap in swaps:
-        item = await db.items.find_one({"id": swap["item_id"]})
-        owner = await db.users.find_one({"id": swap["owner_id"]})
+        item = await db.items.find_one({"id": swap["item_id"]}, {"_id": 0})
+        owner = await db.users.find_one({"id": swap["owner_id"]}, {"_id": 0})
         
         swap["item_title"] = item["title"] if item else "Unknown"
         swap["owner_username"] = owner["username"] if owner else "Unknown"
