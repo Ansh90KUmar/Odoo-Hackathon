@@ -203,23 +203,23 @@ async def get_me(current_user: dict = Depends(get_current_user)):
 # Item endpoints
 @api_router.get("/items")
 async def get_items(skip: int = 0, limit: int = 20):
-    items = await db.items.find({"available": True, "is_approved": True}).skip(skip).limit(limit).to_list(limit)
+    items = await db.items.find({"available": True, "is_approved": True}, {"_id": 0}).skip(skip).limit(limit).to_list(limit)
     
     # Get owner info for each item
     for item in items:
-        owner = await db.users.find_one({"id": item["owner_id"]})
+        owner = await db.users.find_one({"id": item["owner_id"]}, {"_id": 0})
         item["owner_username"] = owner["username"] if owner else "Unknown"
     
     return items
 
 @api_router.get("/items/{item_id}")
 async def get_item(item_id: str):
-    item = await db.items.find_one({"id": item_id})
+    item = await db.items.find_one({"id": item_id}, {"_id": 0})
     if not item:
         raise HTTPException(status_code=404, detail="Item not found")
     
     # Get owner info
-    owner = await db.users.find_one({"id": item["owner_id"]})
+    owner = await db.users.find_one({"id": item["owner_id"]}, {"_id": 0})
     item["owner_username"] = owner["username"] if owner else "Unknown"
     
     return item
