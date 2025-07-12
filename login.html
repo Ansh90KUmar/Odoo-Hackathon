@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Green Threads – Login</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:600,700|Playfair+Display:700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --fern-green: #4C7C59;
+      --sage-green: #A8C3A0;
+      --warm-white: #FCFCFC;
+      --charcoal-gray: #3B3B3B;
+      --coral: #F08080;
+    }
+
+    body {
+      font-family: 'Open Sans', 'Montserrat', Arial, sans-serif;
+      background: var(--warm-white);
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    .form-container {
+      background: #FCFCFC;
+      padding: 2.5rem 2rem;
+      border-radius: 24px;
+      width: 360px;
+      box-shadow: 0px 4px 20px rgba(76,124,89,0.08);
+      text-align: center;
+      margin: 120px auto 40px auto;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+      color: var(--fern-green);
+      font-family: 'Playfair Display', serif;
+      white-space: nowrap;
+    }
+
+    .subtitle {
+      color: var(--charcoal-gray);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin: 0.5rem 0 0.3rem;
+      color: var(--fern-green);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .emoji {
+      margin-right: 6px;
+    }
+
+    input {
+      padding: 0.8rem;
+      border: 2px solid var(--sage-green);
+      border-radius: 12px;
+      outline: none;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s;
+      font-family: 'Open Sans', Arial, sans-serif;
+      background: #FFF6C3;
+    }
+
+    input:focus {
+      border-color: var(--fern-green);
+      background: #FCFCFC;
+    }
+
+    .action-btn {
+      background: var(--fern-green);
+      color: var(--warm-white);
+      font-size: 1rem;
+      padding: 0.9rem;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Poppins', sans-serif;
+      box-shadow: 0 2px 8px rgba(76,124,89,0.10);
+      margin-bottom: 0.5rem;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .action-btn:hover {
+      background: var(--sage-green);
+      color: var(--charcoal-gray);
+    }
+
+    .bottom-link {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--fern-green);
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .bottom-link a {
+      color: var(--coral);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .bottom-link a:hover {
+      color: var(--fern-green);
+    }
+
+    @media screen and (max-width: 500px) {
+      .form-container {
+        width: 95vw;
+        padding: 1.2rem 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h1 class="title"><span id="title-emoji">🚀</span><span id="title-text">Login</span></h1>
+    <p class="subtitle">Circular fashion for a sustainable future</p>
+
+    <!-- Login Form -->
+    <form id="login-form" autocomplete="off">
+      <label for="login-email"><span class="emoji">📧</span> Email</label>
+      <input type="email" id="login-email" placeholder="Enter your email" required/>
+
+      <label for="login-password"><span class="emoji">🔒</span> Password</label>
+      <input type="password" id="login-password" placeholder="Enter your password" required/>
+
+      <button type="submit" class="action-btn">🚀 Login</button>
+      <p class="bottom-link">✨ Don’t have an account? <a href="#" id="show-signup">Sign up</a></p>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signup-form" style="display: none;" autocomplete="off">
+      <label for="signup-email"><span class="emoji">📧</span> Email</label>
+      <input type="email" id="signup-email" placeholder="Enter your email" required/>
+
+      <label for="signup-username"><span class="emoji">🧑‍💼</span> Username</label>
+      <input type="text" id="signup-username" placeholder="Choose a username" required/>
+
+      <label for="signup-password"><span class="emoji">🔒</span> Password</label>
+      <input type="password" id="signup-password" placeholder="Create a password" required/>
+
+      <button type="submit" class="action-btn">✨ Create Account</button>
+      <p class="bottom-link">🌀 Already have an account? <a href="#" id="show-login">Login</a></p>
+    </form>
+  </div>
+
+  <script>
+    const showSignup = document.getElementById('show-signup');
+    const showLogin = document.getElementById('show-login');
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const titleText = document.getElementById('title-text');
+    const titleEmoji = document.getElementById('title-emoji');
+
+    showSignup.onclick = function(e) {
+      e.preventDefault();
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
+      titleText.textContent = 'Sign up';
+      titleEmoji.textContent = '✨';
+    };
+
+    showLogin.onclick = function(e) {
+      e.preventDefault();
+      loginForm.style.display = 'block';
+      signupForm.style.display = 'none';
+      titleText.textContent = 'Login';
+      titleEmoji.textContent = '🚀';
+    };
+
+    loginForm.onsubmit = function(e) {
+      e.preventDefault();
+      alert('Login successful!');
+    };
+
+    signupForm.onsubmit = function(e) {
+      e.preventDefault();
+      alert('Signup successful!');
+    };
+  </script>
+
+</body>
+</html>

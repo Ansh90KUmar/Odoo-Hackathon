@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Beth+Ellen|Nova+Cut&display=swap" rel="stylesheet"> 
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="css/style_index.css">
+  <link rel="stylesheet" href="css/demo.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/categories.css">
+
+  <!-- Inline Style -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #F8E9D0;
+      font-family: 'Lora', serif;
+    }
+
+    .slogan {
+      font-family: 'Beth Ellen', cursive;
+      color: black;
+      font-size: 36px;
+      margin-bottom: 0;
+    }
+
+    .author {
+      font-family: 'Nova Cut', cursive;
+      color: black;
+      font-size: 18px;
+    }
+
+    .contact-info {
+      padding-top: 150px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .contact-form-container {
+      max-width: 600px;
+      background: #FCFCFC;
+      margin: auto;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(76, 124, 89, 0.1);
+    }
+
+    .contact-form-container h2 {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      color: #4C7C59;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 8px;
+      color: #4C7C59;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px solid #A8C3A0;
+      background: #FFF6C3;
+      font-size: 16px;
+      margin-bottom: 20px;
+      font-family: 'Open Sans', sans-serif;
+      resize: vertical;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #4C7C59;
+      background: #ffffff;
+    }
+
+    button {
+      background: #4C7C59;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #A8C3A0;
+      color: #3B3B3B;
+    }
+
+    @media (max-width: 600px) {
+      .contact-form-container {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body> 
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <h3><a href="green.html" class="logo-name">Green Threads</a></h3>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="contact.html">ContactUs</a></li>
+      <li><a href="login.html" id="login">Login</a></li>
+    </ul>
+    <div class="burger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </nav>
+
+  <!-- Contact Info -->
+  <div class="contact-info">
+    <p class="slogan">"Green Threds"</p>
+    <p class="author">AIGNITERSS</p>
+    <p class="author">greenthreds.com</p>
+    <p class="author"><a href="#" class="logo-name">On LinkedIn</a></p>
+  </div>
+
+  <!-- Contact Form -->
+  <div class="contact-form-container">
+    <h2>Send us a Message</h2>
+    <form action="#" method="post">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="message">Your Message</label>
+      <textarea id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script type="text/javascript" src="js/nav.js"></script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Products</title>
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:700i" rel="stylesheet">
+    <link rel="stylesheet" href="css/style_index.css">
+    <link rel="stylesheet" href="css/categories.css">
+    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <head>
+  <body>
+    <!-- navbar -->
+      <nav> 
+        <div class="logo">
+          <h3><a href="merlin.html" class="logo-name">Green Threads</a></h3>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="categories.html">Categories</a></li>
+          <li><a href="contact.html">ContactUs</a></li>
+          <li><a href="login.html" id="login">Login</a></li>
+        </ul>
+        <div class="burger">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+      </nav>
+    <!-- navbar -->
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>List Your Pre-Loved Item</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fafafa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    p.subtext {
+      text-align: center;
+      color: #777;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .row {
+      display: flex;
+      gap: 20px;
+    }
+
+    .row > div {
+      flex: 1;
+    }
+
+    .photo-upload {
+      border: 2px dashed #c4e3c7;
+      margin-top: 12px;
+      padding: 40px;
+      text-align: center;
+      color: #888;
+      border-radius: 10px;
+      cursor: pointer;
+      background-color: #f7fff7;
+    }
+
+    .photo-upload:hover {
+      background-color: #efffef;
+    }
+
+    .photo-upload input {
+      display: none;
+    }
+
+    .submit-button {
+      margin-top: 30px;
+      width: 100%;
+      background-color: #2c7a59;
+      color: white;
+      padding: 14px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .submit-button:hover {
+      background-color: #246b4e;
+    }
+
+    .eco-icon {
+      margin-left: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>List Your Pre-Loved Item</h1>
+    <p class="subtext">Share your fashion finds with the eco-community</p>
+
+    <form>
+      <label for="title">Item Title *</label>
+      <input type="text" id="title" placeholder="e.g., Vintage Denim Jacket" required>
+
+      <label for="desc">Description *</label>
+      <textarea id="desc" placeholder="Tell us about the item's style, fit, and story..." required></textarea>
+
+      <div class="row">
+        <div>
+          <label for="category">Category</label>
+          <select id="category">
+            <option>Tops</option>
+            <option>Bottoms</option>
+            <option>Outerwear</option>
+            <option>Accessories</option>
+          </select>
+        </div>
+        <div>
+          <label for="size">Size *</label>
+          <input type="text" id="size" placeholder="XS, S, M, L, XL, 8, 10..." required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label for="condition">Condition</label>
+          <select id="condition">
+            <option>Excellent</option>
+            <option selected>Good</option>
+            <option>Fair</option>
+          </select>
+        </div>
+        <div>
+          <label for="points">Eco Points</label>
+          <input type="text" id="points" value="50">
+        </div>
+      </div>
+
+      <label for="tags">Tags</label>
+      <input type="text" id="tags" placeholder="vintage, boho, summer, casual (separate with commas)">
+
+      <label>Photos</label>
+      <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
+        <img src="https://img.icons8.com/ios-filled/50/camera.png" width="32" alt="camera icon">
+        <p>Click to add photos</p>
+        <p style="font-size: 14px; color: #aaa;">Add up to 5 photos to show your item's best angles</p>
+        <input type="file" id="photoInput" accept="image/*" multiple>
+      </div>
+
+      <button type="submit" class="submit-button">
+        List Item <span class="eco-icon">🌱</span>
+      </button>
+    </form>
+  </div>
+</body>
+</html>
+   
+
+
+    
+      
+    <script src="nav.js"></script>
+    <script src="js/products.js"></script>
+  </body>
+</html>

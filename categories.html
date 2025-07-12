@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Categories</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lora:400,700|Montserrat:300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Chivo:300,700|Playfair+Display:700i&display=swap" rel="stylesheet">
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="css/style_index.css">
+  <link rel="stylesheet" href="css/demo.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/categories.css">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Lora', serif;
+      background: #F8E9D0;
+    }
+
+    .categories-container {
+      max-width: 1200px;
+      margin: 100px auto 60px;
+      padding: 0 20px;
+    }
+
+    .categories-title {
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: #4C7C59;
+      margin-bottom: 40px;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .category-card {
+      background: #FCFCFC;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(76, 124, 89, 0.1);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .category-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .category-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .category-name {
+      padding: 16px;
+      font-family: 'Chivo', sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #4C7C59;
+    }
+
+    @media (max-width: 500px) {
+      .categories-title {
+        font-size: 2rem;
+      }
+
+      .category-name {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <h3><a href="green.html" class="logo-name">Green Threads</a></h3>
+    </div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="categories.html">Categories</a></li>
+      <li><a href="contact.html">ContactUs</a></li>
+      <li><a href="login.html" id="login">Login</a></li>
+    </ul>
+
+    <div class="burger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </nav>
+
+  <!-- Categories Section -->
+  <div class="categories-container">
+    <h2 class="categories-title">Explore Our Clothing Categories</h2>
+    <div class="categories-grid">
+      <div class="category-card">
+        <img src="category1.png" alt="T-Shirts" class="category-image">
+        <div class="category-name">T-Shirts</div>
+      </div>
+
+      <div class="category-card">
+        <img src="category2.png" alt="Jeans" class="category-image">
+        <div class="category-name">Jeans</div>
+      </div>
+
+      <div class="category-card">
+        <img src="category3.png" alt="Jackets" class="category-image">
+        <div class="category-name">Jackets</div>
+      </div>
+
+      <div class="category-card">
+        <img src="category4.png" alt="Sarees" class="category-image">
+        <div class="category-name">Sarees</div>
+      </div>
+
+      <div class="category-card">
+        <img src="category5.png" alt="Hoodies" class="category-image">
+        <div class="category-name">Hoodies</div>
+      </div>
+
+      <div class="category-card">
+        <img src="category6.png" alt="Kurtas" class="category-image">
+        <div class="category-name">Kurtas</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="text/javascript" src="js/nav.js"></script>
+</body>
+</html>
